@@ -139,6 +139,10 @@
             transition: transform 0.3s;
         }
 
+        .cart-btn-mobile {
+            display: none;
+        }
+
         .cart-btn:hover {
             transform: scale(1.05);
         }
@@ -599,6 +603,51 @@
         /* Responsive */
         /* Responsive */
         @media (max-width: 768px) {
+            .cart-btn {
+                display: none;
+            }
+
+            .cart-btn-mobile {
+                display: flex;
+                position: relative;
+                background: linear-gradient(135deg, #ef4444 0%, #f97316 100%);
+                color: white;
+                border: none;
+                width: 45px;
+                height: 45px;
+                border-radius: 50%;
+                cursor: pointer;
+                align-items: center;
+                justify-content: center;
+                font-size: 1.2rem;
+                box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
+            }
+
+            .cart-btn-mobile:active {
+                transform: scale(0.95);
+            }
+
+            .cart-count-mobile {
+                position: absolute;
+                top: -5px;
+                right: -5px;
+                background: #fbbf24;
+                color: #dc2626;
+                width: 22px;
+                height: 22px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 0.7rem;
+                font-weight: bold;
+                border: 2px solid white;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+                order: 2;
+            }
             .nav-container {
                 padding: 0.75rem 1rem;
             }
@@ -859,10 +908,17 @@
                 <li><a href="#" class="nav-link" data-tab="about">Tentang</a></li>
             </ul>
             <div style="display: flex; align-items: center; gap: 1rem;">
+                <!-- Desktop: Hamburger Hidden, Cart Visible -->
                 <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
                 <button class="cart-btn" onclick="toggleCart()">
                     🛒 Keranjang
                     <span class="cart-count" id="cartCount">0</span>
+                </button>
+                
+                <!-- Mobile: Cart Simple, Hamburger di Kanan -->
+                <button class="cart-btn-mobile" onclick="toggleCart()">
+                    🛒
+                    <span class="cart-count-mobile" id="cartCountMobile">0</span>
                 </button>
             </div>
         </div>
@@ -899,7 +955,7 @@
             <!-- Promo Banner -->
             <div class="promo-banner">
                 <h3> Promo Hari Ini! </h3>
-                <p><strong>Beli 7 Gratis 1 Piring Cantik!</strong></p>
+                <p><strong>Beli 3 Porsi, Gratis 1 Es Teh!</strong></p>
                 <p>Berlaku untuk semua varian seblak. Buruan order sekarang!</p>
             </div>
         </div>
@@ -1104,6 +1160,7 @@
         function updateCart() {
             const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
             document.getElementById('cartCount').textContent = cartCount;
+            document.getElementById('cartCountMobile').textContent = cartCount;
             
             if (cart.length === 0) {
                 document.getElementById('cartItems').innerHTML = '';
@@ -1235,5 +1292,4 @@
         renderProducts('allProducts', products);
     </script>
 </body>
-
 </html>
